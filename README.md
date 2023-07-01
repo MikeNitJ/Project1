@@ -13,5 +13,3 @@ The goal is to fill up all the empty grid with numbers on the rule that The numb
 - Jquery
 
 
-<!-- ### Wireframe
-![Wireframe](Wireframe diagram - Page 1.jpeg) -->
