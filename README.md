@@ -14,4 +14,4 @@ The goal is to fill up all the empty grid with numbers on the rule that The numb
 
 
 ### Wireframe
-![Wireframe](https://github.com/MikeNitJ/Project1/blob/main/Wireframe%20diagram%20-%20Page%201.jpeg)
+![Wireframe](Wireframe diagram - Page 1.jpeg)
