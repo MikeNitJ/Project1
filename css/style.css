@@ -1,0 +1,93 @@
+h1{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+p{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+p1{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+div{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* flex-direction: row; */
+
+}
+#board-base{
+    width: 480px;
+    height: 480px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.grid {
+    width: 48px;
+    height: 48px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 50px;
+}
+
+.num{
+    width: 44px;
+    height: 44px;
+    border: 1px solid black;
+    margin: 2px;
+    display: flex;
+    justify-content: center;
+    font-size: 35px;
+}
+.cellElement-background{
+    width: 48px;
+    height: 48px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 50px;
+    background-color: rgb(201, 201, 201);
+    color: rgb(0, 0, 0);
+}
+form{
+    display: flex;
+    flex-direction : column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    font-size: 50;
+    
+}
+.selected{
+    background-color: green;
+}
+.gridSolution{
+    width: 48px;
+    height: 48px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 50px;
+}
+
+input[type="submit"] {
+    padding: 10px 20px; /* Adjust padding values as needed */
+    font-size: 16px; /* Adjust font size as needed */
+    flex-direction: row;
+}
