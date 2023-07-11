@@ -1,7 +1,7 @@
 const $form = $("form");
+const $setGame = $("input[name='setgame']");
 const $start = $("input[name='start']");
-const $result = $("input[name='result']");
-const $solution = $("input[name='solution']");
+const $solve = $("input[name='solve']");
 const $timer = $("input[name='timer']");
 const $point = $("#point")
 const $time = $("#time")
@@ -9,15 +9,13 @@ const $time = $("#time")
 let boardArray 
 let solutionArray 
 let score = 0;
-let seconds = 0;
-let minutes = 0;
-let timerrr = 0
+let timeCount = 0
 let intervalId
 
-     $start.on("click", function(event) {
+     $setGame.on("click", function(event) {
         event.preventDefault(); // Prevent form submission
               
-          $.ajax("https://sudoku-api.vercel.app/api/dosuku")
+          $.ajax("https://sudoku-api.vercel.app/api/dosuku") 
               .then((data) => {
                  boardArray = data.newboard.grids[0].value;
                  solutionArray = data.newboard.grids[0].solution;
@@ -26,45 +24,28 @@ let intervalId
                 console.log(solutionArray)
                 
                 createGrid();
-                // callingBoard(boardArray)
                 createNum();
-                // addClickHandlers(); ตรงนี้ย้ายไปข้างล่างทำให้ฟังชันทำงาน ถาม?
+                removeSetgameButton();
 
-
-
-                // $result.on("click", function(event) {
-                //   event.preventDefault();
-                  
-                //   if (boardArray) {
-                //     callingBoard();
-                //   } else {
-                //     console.log("Start button not clicked yet");
-                //   }
-                // });
-
-                $result.on("click", function(event) {
+                $start.on("click", function(event) {
                   event.preventDefault()
                   
                   callingBoard()
                   addClickHandlers();
                   timer()
 
-                  
-
                 });
 
-                $solution.on("click", function(event) {
+                $solve.on("click", function(event) {
                   event.preventDefault()
                   
                   callingSolution()
                   addClickHandlers();
+                  stopTimer()
                   
                 });
                 
-                $timer.on("click", function(event) {
-                  event.preventDefault()
-                  stopTimer()
-                });
+
 
               })  
               .catch((error) => {
@@ -77,7 +58,7 @@ let intervalId
            
 
 
-     // on click generate 9*9 grid
+     // create 9*9 grid
  function createGrid() {
    for (let i = 0; i < 9; i++) {
      for (let j = 0; j < 9; j++) {
@@ -85,12 +66,18 @@ let intervalId
       grid.id = i.toString() + "-" + j.toString();
       grid.classList.add("grid");
       document.getElementById("board-base").append(grid);
-
+      
+      if(i == 2 || i == 5){
+        grid.classList.add("horizontal-line");
+      }
+      if(j == 2 || j == 5){
+        grid.classList.add("vertical-line");  
+      }
       
     }
   }
 }
-
+// get and add number from API to set up the board
 function callingBoard() {
   for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
@@ -108,7 +95,7 @@ function callingBoard() {
   }
 }
 
-
+// get solution of the game
 function callingSolution() {
   for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
@@ -128,7 +115,7 @@ function callingSolution() {
 
 
 
-// generate Number 1-9 to put in the grid
+// create Number 1-9 to put in the grid
 function createNum(){
   for(let i = 1; i <= 9; i++){
     
@@ -147,12 +134,14 @@ function addClickHandlers() {
   
   $(".grid").click(function() {
     const selectedGrid = $(this); //sudoku box that I click on
-    const selectedValue = $(".selected").attr("id"); //button selected at the bottom attr is the thing that I get from the object in this case is id
+    const selectedValue = $(".selected").attr("id"); // to get id of the selected class which is number
+    //button selected at the bottom attr is the thing that I get from the object in this case is id
     
     console.log(selectedGrid.attr("id"))
     let selectedGridId = selectedGrid.attr("id")
     let A = selectedGridId.slice(0, 1)
     let B = selectedGridId.slice(2)
+
     // let C = selectedValue.toString()
     // console.log(A);
     // console.log(B);
@@ -160,13 +149,10 @@ function addClickHandlers() {
     console.log(solutionArray[A][B],selectedValue)
 
 
-    
     // console.log(solutionArray[i][j],selectedValue)
     //i and j should be the id(0-1 or 1-1) from selected grid
-    // อาจจะต้องใช้splice แยก0-0ออก แล้วเอา0ไปใส่iกับj
-    // 
-    
-    if (selectedValue) {
+ 
+    if (selectedValue) { //take id of number and add it into a grid 
       const value = selectedValue.slice(0, 1);
       selectedGrid.text(value);
     } else {
@@ -174,24 +160,24 @@ function addClickHandlers() {
       
       
     }
-      
+      // compare value of grid and solution 
       if(selectedValue == solutionArray[A][B]){
 
-        score = score 
-        
+        score = score
+        selectedGrid.removeClass("grid").addClass("correct");
+        // selectedGridId.removeClass("grid")
+        // selectedGridId.addClass("cellElement-background")
       }else{
         
         score = score +1
       }
 
-
       $point.empty(score)
       $point.append(score)
 
 
-
   });
-  
+  // on click class with num it will remove the previous selected class and add the new one
   $(".num").click(function() {
     $(".selected").removeClass("selected");
     $(this).addClass("selected");
@@ -199,30 +185,22 @@ function addClickHandlers() {
   
   
 }
-
-// function timer(){
-//   seconds++;
-//   if (seconds == 60){
-//     seconds = 0;
-//     minutes++;
-//     if(minutes == 60){
-//       minutes = 0;
-//     }
-//   }
-
-
-// }
-
+// time count up
 function timer() {
   intervalId = setInterval(() => {
-    console.log(timerrr);
-    timerrr++;
-    $time.empty().append(timerrr);
+    console.log(timeCount);
+    timeCount++;
+    $time.empty().append(timeCount);
   }, 1000);
 }
-
+// stop time count up
 function stopTimer() {
   clearInterval(intervalId);
-  timerrr = 0; // Reset the timer value
+  timeCount = 0; // Reset the timer value
   // $time.empty().append(timerrr);
 }
+// remove setgame button
+function removeSetgameButton(){
+    $setGame.remove()
+}
+

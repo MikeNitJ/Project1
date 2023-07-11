@@ -12,6 +12,7 @@ p1{
     display: flex;
     text-align: center;
     justify-content: center;
+    margin-bottom: 50px;
 }
 div{
     
@@ -34,7 +35,7 @@ div{
 .grid {
     width: 48px;
     height: 48px;
-    border: 1px solid black;
+    border: 1px solid rgb(214, 214, 214);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -68,8 +69,9 @@ form{
     flex-direction : column;
     align-items: center;
     justify-content: center;
-    padding: 30px;
-    font-size: 50;
+    /* padding-bottom: 410px; */
+    font-size: 50px;
+    
     
 }
 .selected{
@@ -88,6 +90,35 @@ form{
 
 input[type="submit"] {
     padding: 10px 20px; /* Adjust padding values as needed */
-    font-size: 16px; /* Adjust font size as needed */
-    flex-direction: row;
+    font-size: 15px; /* Adjust font size as needed */
+    padding: 20px;
+
 }
+
+.container {
+    width: 620px;
+    margin: 0 auto;
+    /* padding-left: 430px; */
+    /* justify-content: space-around; */
+}
+
+.horizontal-line{
+    border-bottom: 1px solid black;
+}
+.vertical-line{
+    border-right: 1px solid black;
+}
+.correct{
+    width: 48px;
+    height: 48px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 50px;
+    /* background-color: rgb(201, 201, 201); */
+    color: rgb(0, 0, 0);
+    background-color: rgba(63, 134, 228, 0.63);
+}
+
